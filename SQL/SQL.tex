@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+\usepackage[cp1251]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage{indentfirst}
+
+%\setlength{}{0pt}
+%\setlength{}{1ex plus 0.5ex minus 0.2ex}
+
+\begin{document}
+{\bfseriesПервая нормальная форма}
+
+Таблица находится в первой нормальной форме, если все ее поля имеют простые (атомарные) значения. Само понятие атомарности определить достаточно трудно. Значение, атомарное в одном случае, может быть неатомарным в другом. Общий принцип здесь такой: значение не атомарно, если оно используется по частям.
+
+{\bfseriesВторая нормальная форма}
+
+Эта форма применяется к таблицам с составными ключами. Таблица, у которой первичный ключ включает только одно поле, всегда находится во 2НФ.
+
+Таблица находится во второй нормальной форме, если она находится в первой нормальной форме, а каждое неключевое поле функционально полно зависит от составного ключа.
+
+
+{\bfseriesТретья нормальная форма}
+
+Таблица находится в третьей нормальной форме, если она находится во второй нормальной форме, и каждое неключевое поле нетранзитивно зависит от первичного ключа.
+
+Транзитивная зависимость наблюдается в том случае, если одно из двух неключевых полей зависит от первичного ключа, а другое зависит от первого неключевого поля.
+
+\section*{Синтаксис}
+\parindent=0pt
+\parskip=5pt
+
+mysql -u root -p /enter\\
+password
+
+create database name;\\
+use name;\\
+create table name(\\
+name\_1 type\_1 auto\_increment not null default('value'), \dots,\\ 
+name\_n type\_n,\\
+primary key(name\_1, \dots, name\_n),\\
+foreign key (name) references table\_name (name)\\
+);
+
+show databases;\\
+show tables;\\
+describe name;
+
+drop database name;\\
+drop table name;
+
+insert into table\_name (colname, \dots,colname) values \\
+('val', \dots, 'val'),\\
+\dots\\
+('val', \dots, 'val');
+
+select colnames from table\_names order by colnames desc where colname in\\
+(select colname from table\_name order by \dots where \dots);
+
+select colname colname from tablename left/right/full outer join tablename on условие объединения;
+
+\end{document}

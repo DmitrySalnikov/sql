@@ -1,0 +1,79 @@
+create database alp_base;
+use alp_base;
+
+create table alpinists(
+id_alpinist int(10) unsigned auto_increment,
+surname varchar(20) not null,
+name varchar(20) not null,
+patronym varchar(20),
+birth date not null,
+address text,
+primary key (id_alpinist)
+);
+
+create table mountains(
+id_mountain smallint unsigned auto_increment,
+name varchar(20) not null,
+height smallint not null,
+country varchar(20) not null,
+district varchar(20),
+primary key (id_mountain)
+);
+
+create table climbings(
+id_climbing int(10) unsigned auto_increment,
+id_mountain smallint unsigned not null,
+begin date not null,
+end date not null,
+primary key (id_climbing),
+foreign key (id_mountain) references mountains (id_mountain)
+);
+
+create table concerns(
+id_climbing int(10) unsigned not null,
+id_alpinist int(10) unsigned not null,
+primary key (id_climbing, id_alpinist),
+foreign key (id_climbing) references climbings (id_climbing),
+foreign key (id_alpinist) references alpinists (id_alpinist)
+);
+
+insert into alpinists (name, surname, birth) values
+('Dmitry', 'Salnikov', '1995-01-03'),
+('Anton', 'Vopilov', '1991-05-25'),
+('Marusya', 'Chighova', '1992-11-08'),
+('Polina', 'Yanchuk', '1994-06-9'),
+('Gleb', 'Stukalin', '1992-09-22'),
+('Ekaterina', 'Tolstova', '1993-10-23');
+
+insert into mountains (name, height, country) values
+('Parnas', '80', 'Russia'),
+('Krym', '2000', 'Ukraina'),
+('Beluha', '1000', 'Russia');
+
+insert into climbings (id_mountain, begin, end) values
+('1', '2015-10-7', '2015-10-9'),
+('1', '2016-10-7', '2016-10-9'),
+('2', '2014-7-7', '2014-7-23');
+
+insert into concerns (id_climbing, id_alpinist) values
+('1', '3'),
+('1', '4'),
+('1', '6'),
+('1', '7'),
+('2', '1'),
+('2', '3'),
+('2', '4'),
+('2', '5'),
+('2', '6'),
+('2', '7'),
+('3', '3'),
+('3', '4'),
+('3', '6');
+
+select name, surname from alpinists;
+
+select name, surname, birth from alpinists where (
+(year(curdate()) - year(birth)) - 
+(date_format(current_date, '%m%d') < date_format(birth, '%m%d'))
+) > 21;
+
